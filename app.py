@@ -8,7 +8,8 @@ from langchain_community.vectorstores import InMemoryVectorStore
 import streamlit as st
 from time import sleep
 
-llm=ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+llm=ChatGoogleGenerativeAI(model="gemini-2.5-flash",google_api_key=api_key)
+api_key=st.secrets["GOOGLE_API_KEY"]
 
 if "vector_db" not in st.session_state:
     st.session_state.vector_db=None
@@ -37,7 +38,7 @@ def document_processs(path):
 
 
     ## embedding and vector store
-    embeddings=GoogleGenerativeAIEmbeddings(model="gemini-embedding-2-preview")                                       
+    embeddings=GoogleGenerativeAIEmbeddings(model="gemini-embedding-2-preview",google_api_key=api_key)                                       
     vector_db=InMemoryVectorStore.from_documents(
         documents=docs,
         embedding=embeddings)
